@@ -1,0 +1,36 @@
+<div class="seach-field">
+  <input matInput placeholder="Enter string and press enter"  type="text" [ngModel]="tweetString" (keyup.enter)="getSearchitem($event)">
+  <span class="lst-icon"><i class="p-search"></i></span>
+  <mat-progress-bar *ngIf="isSearch"
+  class="progressbar-margin"
+  color="primary"
+  mode="indeterminate"
+  bufferValue="50"
+  value="70">
+  </mat-progress-bar>
+</div>
+<h5 *ngIf="isLoading" class="list-title">I can search tweets for you, enter text and press enter</h5>
+<div *ngIf="!isLoading">
+<h4  class="list-title" >
+    <span *ngIf="isSearch">Searching </span>
+    <span *ngIf="!isSearch">Search </span>
+    result for "<i>{{ tweetString }}</i>"
+  </h4>
+<div *ngIf="tweetList.status == 'success' && !isSearch && tweetList.data.length > 0; else elseBlock">
+  <mat-card class="tweet-card" *ngFor="let tweet of tweetList.data">
+    <mat-card-header>
+      <div mat-card-avatar><img class="profile-image" src="{{ tweet.user.profile_image_url }}"/></div>
+        <mat-card-content>
+          <p>
+            {{ tweet.text }}
+          </p>
+        </mat-card-content>
+    </mat-card-header>
+    <mat-card-actions>
+      <a mat-raised-button [routerLink]="['/tweet', tweet.id_str ]">More Details</a>
+      <!--a mat-button target="_blank" href="tweet.entities.media.url">Go to Twitter Page</a-->
+    </mat-card-actions>
+  </mat-card>
+</div>
+<ng-template #elseBlock *ngIf="isSearch">No tweet found for this provide string.</ng-template>
+</div>

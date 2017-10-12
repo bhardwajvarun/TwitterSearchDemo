@@ -1,0 +1,25 @@
+
+<mat-card class="tweet-card" *ngIf="tweetDetail.status == 'success'; else elseBlock">
+    <mat-card-header>
+      <div mat-card-avatar><img class="profile-image" src="{{ tweetDetail.data.user.profile_image_url }}"/></div>
+      <mat-card-title class="tweet-title"><a target="_blank" href="https://twitter.com/{{tweetDetail.data.user.screen_name}}">{{tweetDetail.data.user.name}}</a></mat-card-title>
+      <mat-card-subtitle class="tweet-title">@{{tweetDetail.data.user.screen_name}}</mat-card-subtitle>
+    </mat-card-header>
+    <a target="_blank" *ngIf="tweetDetail.data.entities.media" href="https://twitter.com/{{tweetDetail.data.user.screen_name}}/status/{{tweetDetail.data.id_str}}">
+      <img mat-card-image style="margin-top:20px;" src="{{tweetDetail.data.entities.media[0].media_url}}" />
+    </a>
+    <mat-card-content class="tweet-body">
+        <a target="_blank"  *ngIf="tweetDetail.data.entities.media; else NotweetImage" href="https://twitter.com/{{tweetDetail.data.user.screen_name}}/status/{{tweetDetail.data.id_str}}">
+          <p>
+              {{tweetDetail.data.text}}
+          </p>
+        </a>
+        <ng-template #NotweetImage >{{tweetDetail.data.text}}</ng-template>        
+    </mat-card-content>
+    {{tweetDetail.data.created_at}}
+    <mat-card-actions>
+      <button mat-raised-button><a target="_blank" href="https://twitter.com/{{tweetDetail.data.user.screen_name}}/status/{{tweetDetail.data.id_str}}">Go To Tweet</a></button>
+    </mat-card-actions>
+  </mat-card>
+  <ng-template #elseBlock *ngIf="isLoading">No tweet found for this provide Id.</ng-template>
+  
