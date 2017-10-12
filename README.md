@@ -1,7 +1,7 @@
 # TwitterSearch
 
-To install user
+To install use
   npm install
   
- To run code user 
+ To run code use
   npm run start
