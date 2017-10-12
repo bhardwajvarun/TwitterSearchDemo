@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 
 import { HomeComponent } from './home.component';
 
-describe('Component: About', () => {
+describe('Component: Home', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
