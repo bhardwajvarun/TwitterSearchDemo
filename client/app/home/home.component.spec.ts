@@ -1,7 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_BASE_HREF } from '@angular/common';
 
-import { HomeComponent } from './home.component';
+import { SharedModule } from '../shared/shared.module';
+import { RoutingModule } from '../routing.module';
+
+import { HomeComponent } from '../home/home.component';
+import { SearchService } from '../services/search.service';
+
+import { TweetComponent } from '../tweet/tweet.component';
+import { TweetService } from '../services/tweet.service';
+
 
 describe('Component: Home', () => {
   let component: HomeComponent;
@@ -9,7 +18,16 @@ describe('Component: Home', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      imports: [ 
+        SharedModule,
+        RoutingModule
+      ],      
+      declarations: [ HomeComponent , TweetComponent],
+      providers: [
+        TweetService,
+        SearchService,
+        {provide: APP_BASE_HREF, useValue: '/'}
+      ]
     })
     .compileComponents();
   }));
